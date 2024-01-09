@@ -51,7 +51,7 @@ public class BookController {
 		try{
 			b = this.bookservice.addBook(book);
 			System.out.println(b);
-			return ResponseEntity.of(Optional.of(b));
+			return ResponseEntity.status(HttpStatus.CREATED).body(book);
 		}catch(Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -60,16 +60,11 @@ public class BookController {
 	}
 	
 	//delete a book
-	@DeleteMapping("/books/{ID}")
-	public ResponseEntity<Void> deleteBook(@PathVariable("ID") int id) {
+	@DeleteMapping("/books/{id}")
+	public ResponseEntity<Void> deleteBook(@PathVariable("id") int id) {
 	   try {
-			Boolean flag = false;
-			flag = this.bookservice.deleteBook(id);
-			if (flag == false) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-			} else {
-				return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-			}		
+		   this.bookservice.deleteBook(id);
+			return ResponseEntity.noContent().build();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -79,13 +74,12 @@ public class BookController {
 	//update a book
 	@PutMapping("/books/{id}")
 	public ResponseEntity<Book> updateBook(@RequestBody Book book, @PathVariable ("id") int id){
-		Boolean flag = false;
-			flag = this.bookservice.updateBook(book, id);
-		if(flag == true) {
-			return ResponseEntity.ok().body(book);
-		} else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-			
+		   try {
+			   this.bookservice.updateBook(book, id);
+			   return ResponseEntity.ok(book);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			}	
 	}
 }

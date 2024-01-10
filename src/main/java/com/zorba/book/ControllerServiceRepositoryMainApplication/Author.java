@@ -1,10 +1,13 @@
 package com.zorba.book.ControllerServiceRepositoryMainApplication;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity 
@@ -23,7 +26,9 @@ public class Author {
 	
 	private String language;
 	
-	
+	@OneToOne(mappedBy = "author")
+	@JsonBackReference    //This is child entity. JSON will not go back to fetch the data again
+	private Book book;
 	
 	public Author(Integer authorId, String firstName, String lastName, String language) {
 		super();
@@ -37,6 +42,13 @@ public class Author {
 		super();
 	}
 	
+	
+	public Book getBook() {
+		return book;
+	}
+	public void setBook(Book book) {
+		this.book = book;
+	}
 	public Integer getAuthorId() {
 		return authorId;
 	}

@@ -1,4 +1,4 @@
-package com.zorba.book.ControllerServiceRepositoryMainApplication;
+package com.zorba.book.ControllerServiceRepositoryMainApplication.Controller;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.zorba.book.ControllerServiceRepositoryMainApplication.Book;
+import com.zorba.book.ControllerServiceRepositoryMainApplication.BookService;
+
 
 @RestController
 @RequestMapping("/BookController")

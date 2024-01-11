@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.zorba.book.ControllerServiceRepositoryMainApplication.helper.FileUploadHelper;
 
@@ -41,9 +42,12 @@ public class FileUploadController {
 			//aba UI/Postman bata ayeko image kunai na kunai thau ma upload garna parcha ni haina?
 			//So hami static->image ko folder ma post garam
 			
-			boolean flag = fileUploadHelper.uploadFile(file);
+			boolean flag = fileUploadHelper.uploadFile(file);  //call the method in the FileUploadHelper Class
 				if(flag == true) {
-					return ResponseEntity.ok("File is successfully uploaded");
+					// return ResponseEntity.ok("File is successfully uploaded");
+				//Yo ali lamo cha ra maile bujhina..
+				//Yesle postman ko UI ma URL dincha
+				return ResponseEntity.ok(ServletUriComponentsBuilder.fromCurrentContextPath().path("/image/").path(file.getOriginalFilename()).toUriString());
 				} 
 		}catch(Exception e) {
 			e.printStackTrace();

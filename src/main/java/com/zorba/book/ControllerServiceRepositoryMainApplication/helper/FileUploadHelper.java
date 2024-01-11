@@ -16,7 +16,7 @@ public class FileUploadHelper {
 		try {		
 			//Read
 			InputStream inputStream = multipartFile.getInputStream();
-			byte data[] = new byte[inputStream.available()];
+			byte data[] = new byte[inputStream.available()];			
 			inputStream.read(data);
 			
 			//write
